@@ -1,16 +1,3 @@
-<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Votre Page de Recherche</title>
-  <!-- Inclure les fichiers Bootstrap CSS et JS (assurez-vous de les avoir téléchargés) -->
-  <link href="chemin-vers-bootstrap.css" rel="stylesheet">
-</head>
-<body>
-
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -34,9 +21,50 @@
   </div>
 </div>
 
-<!-- Inclure les fichiers Bootstrap JavaScript (assurez-vous de les avoir téléchargés) -->
-<script src="chemin-vers-bootstrap.js"></script>
 <!-- Inclure le fichier JavaScript de votre application -->
-<script src="votre-application.js"></script>
 </body>
 </html>
+
+
+<script>
+// Lazy load controllers as they appear in the DOM (remember not to preload controllers in import map!)
+// import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
+// lazyLoadControllersFrom("controllers", application)
+// Initialisez le client Algolia avec votre ApplicationID et votre Search-Only-API-Key
+document.addEventListener('DOMContentLoaded', function() {
+  var searchInput = document.querySelector('#search-input');
+  var searchForm = document.querySelector('#search-form');
+  var resultsContainer = document.querySelector('#search-results');
+
+  // Remplacez 'YourApplicationID' et 'YourSearchOnlyAPIKey' par vos clés Algolia
+  var client = algoliasearch('PDO8SRTL3V', 'ea191d93879875e591d1bbdde49e5197');
+  var index = client.initIndex('Character'); // Remplacez 'YourIndexName'
+
+  // Chargement de tous les caractères au chargement de la page
+  index.search('').then(function(content) {
+    // Affichez tous les caractères initiaux
+    displayCharacters(content.hits);
+  });
+
+  // Gestionnaire d'événement pour la saisie de l'utilisateur
+  searchInput.addEventListener('keyup', function() {
+    var query = searchInput.value.trim();
+
+    // Filtrage des caractères en fonction de la recherche de l'utilisateur
+    index.search(query).then(function(content) {
+      displayCharacters(content.hits);
+    });
+  });
+
+  function displayCharacters(characters) {
+    // Affichez les caractères dans la vue
+    if (characters.length > 0) {
+      resultsContainer.innerHTML = characters.map(function(character) {
+        return `<h4>${character.name}</h4><p>${character.mbti}</p>`;
+      }).join('');
+    } else {
+      resultsContainer.innerHTML = '<p>Pas de personnage trouvé.</p>';
+    }
+  }
+});
+</script>
