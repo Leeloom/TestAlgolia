@@ -6,7 +6,4 @@ class Character < ApplicationRecord
     attribute :name, :mbti
   end
 
-  def algolia_index
-    "characters_#{Rails.env}"
-  end
 end
