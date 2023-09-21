@@ -1,0 +1,42 @@
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Votre Page de Recherche</title>
+  <!-- Inclure les fichiers Bootstrap CSS et JS (assurez-vous de les avoir téléchargés) -->
+  <link href="chemin-vers-bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1>Recherche de Personnages</h1>
+      <form id="search-form">
+        <div class="input-group mb-3">
+          <input type="text" id="search-input" class="form-control" placeholder="Rechercher...">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div id="search-results">
+        <!-- Les résultats de la recherche seront affichés ici -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Inclure les fichiers Bootstrap JavaScript (assurez-vous de les avoir téléchargés) -->
+<script src="chemin-vers-bootstrap.js"></script>
+<!-- Inclure le fichier JavaScript de votre application -->
+<script src="votre-application.js"></script>
+</body>
+</html>
